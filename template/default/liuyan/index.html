@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>热爱模板———留言</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		 {include: file="include:include"}
+		 <link rel="stylesheet" type="text/css" href="/template/default/common/css/style.css"/>
+		 <script type="text/javascript">
+		 	reai.ready(function(){
+				let num=[];
+				let qqface=reai.qqface({path:'/public/qqface',air:'.liuyan-expand',content:'.main-liuyan',num:75,});
+				let submit=document.querySelector(".liuyan-submit button");
+				reai.verificat(num,4);
+				submit.addEventListener('click',function(){
+					let verData=document.querySelector('.liuyan-yz input');
+					if(verData.value==num.join('')){
+					let content=document.querySelector('.main-liuyan').value;
+					reai.ajax({
+						url:'/index/liuyan',
+						method:'post',
+						data:{'content':qqface.replace_face(content),'username':'{$user.username ? $user.username : "未知"}','uid':{$Request.param.pid ? $Request.param.pid : 0}},
+						dataType:'json',
+						success:res=>{
+							if(res.code==1){setTimeout(function() {location.reload();},1000);}
+							reai.msg(res.msg);
+						},
+						error:res=>{
+							console.log(res)
+						}
+					})
+					}else{
+						reai.msg('验证码错误!!!');
+					}
+				})
+				
+			})
+		 </script>
+	</head>
+	<body>
+ {include: file="include/header"}
+ <div class="nav">
+	 
+	 <div class="box-lg article-box display">
+	 	<div class="display-child art-left">
+			<div class="reai-liuyan">
+			<textarea class="main-liuyan"></textarea>
+			 <div class="liuyan-power">
+				<div class="liuyan-expand"><i class="reai-ico reai-ico-face-smile-b"></i><span>表情</span></div>
+				<div class="liuyan-yz">
+					<canvas id="canvas" width="80" height="36"style="border: 1px solid #ccc;border-radius: 5px;height: 28px;"></canvas>
+				   <input type="text"  class="reai-input"/>
+				</div>
+				<div class="liuyan-submit"><button type="button" class="reai-btn liuyan-btn reai-btn-md">评&nbsp;&nbsp;论</button></div>
+			</div>
+			
+			<div class="reai-liuyan-list">
+				{liuyan name="vo" order="desc" uid="0"  num="$page"}
+			   <div class="reai-liuyan-item">
+			     <div class="ly-list-tt">
+					 <div class="ly-item-tt">用户名:<span>{$vo.username}</span></div>
+					 <div class="ly-item-time">{$vo.time|date="Y-m-d H:i:s",###}</div>
+				 </div>
+				 <div class="liuyan-content">
+					 {$vo.content}
+				 </div>
+			   </div>	
+			   {/liuyan}
+			  </div>
+			  <div style="display: inline-block;width: 100%;text-align: center;height: 50px;line-height: 50px;"><div class="reai-page"></div></div>
+			  <script type="text/javascript">
+			  	reai.ready(function(){
+			  		reai.paging([
+			  			{
+			  			total:{$liuyan.length},
+			  			maxnum:6,
+			  			distance:5,
+			  			index:{$Request.param.index ? $Request.param.index : 1},
+			  			callback:res=>{
+			  			  window.location.href=window.location.pathname+'?index='+res+'&maxnum='+6;
+			  			},
+			  
+			  			}
+			  		])
+			  	})
+			  </script>
+			</div>
+	    </div>
+	 <div class="display-child art-right reai-hide-xs">
+	 </div>
+	 </div>
+ </div>
+  {include: file="include/footer"}
+	</body>
+</html>

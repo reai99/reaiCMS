@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>{$basic.webname}</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="Keywords" content="{$basic.keywords}"/>
+		<meta name="Description" content="{$basic.description}"/>
+		 {include: file="include:include"}
+		 <link rel="stylesheet" type="text/css" href="/template/default/common/css/style.css"/>
+	</head>
+	<body>
+     {include: file="include/header"}
+		<div class="nav">
+			{if condition="$basic.lbstatus=='true'"}
+			<div class="box-lg swiper">
+				<div class="reai-swiper swiper-touch" autoplay="6000"  indicator-dots="true"  control="true"  >
+					{artlist name="vo" num="5"  star='5'}
+					<div class="swiper-item">
+				        <img style="width: 100%;height: 100%;" src=" {$vo.slideimg}" alt="">
+					</div>
+						{/artlist}
+						</div>	
+			</div>
+			{/if}
+			<div class="box-lg recommend-list">
+				{artlist name="vo" star="4" num="4"}
+				<div class="artlist-child reai-col-md6 reai-col-sm12">
+					<div class="artlist-nav-box display">
+				     <div class="art-img display-child"><img src="{$vo.coverimg}" alt=""></div>
+					 <div class="art-nav display-child">
+						 <div class="art-nav-item art-contro-first display">
+							<div class="art-title display-child coverhidden"> <a href="/index/article/index/pid/{$vo.id}.html">{$vo.title}</a> </div>
+							<div class="art-time display-child coverhidden">{$vo.time|date="Y-m-d H:i:s",###}</div>
+						 </div>
+						 <div class="art-nav-item coverhidden">
+						 	作者: <span>{$vo.author}</span>
+						 </div>
+						 <div class="art-nav-item coverhidden">
+							类型: <span class="art-type">   {$vo.type}</span>
+						 </div>
+						 <div class="art-nav-item coverhidden">	
+								标签: 
+							{foreach $vo.label as $label} 
+								<span class="art-label">{$label}</span>
+							{/foreach}
+						 </div>
+					 </div>
+					</div>
+				</div>
+				{/artlist}
+			</div>
+			<div class="box-lg article-box display">
+				<div class="display-child art-left">
+				<div class="art-list-box">
+					<div class="article-header">
+						最新文章 <span>NEW</span>
+						<a class="art-more" href="/index/api/classify.html">更多</a>
+					</div>
+					{artlist name="vo" num="4" }
+					<div class="artlist-child reai-col-md6 reai-col-sm12">
+						<div class="artlist-nav-box display">
+					     <div class="art-img display-child"><img src="{$vo.coverimg}" alt=""></div>
+						 <div class="art-nav display-child">
+							 <div class="art-nav-item art-contro-first display">
+								<div class="art-title display-child coverhidden"><a href="/index/article/index/pid/{$vo.id}.html">{$vo.title}</a></div>
+								<div class="art-time display-child coverhidden">{$vo.time|date="Y-m-d H:i:s",###}</div>
+							 </div>
+							 <div class="art-nav-item coverhidden">
+							 	作者: <span>{$vo.author}</span>
+							 </div>
+							 <div class="art-nav-item coverhidden">
+								类型: <span class="art-type">{$vo.type}</span>
+							 </div>
+							 <div class="art-nav-item coverhidden">	
+									标签: 
+								{foreach $vo.label as $label} 
+									<span class="art-label">{$label}</span>
+								{/foreach}
+							 </div>
+						 </div>
+						</div>
+					</div>
+					{/artlist}
+				</div>
+				<div class="art-list-box">
+					<div class="article-header">
+						热门推文 <span>HOT</span>
+						<a class="art-more" href="/index/api/classify/recommend/3.html">更多</a>
+					</div>
+					{artlist name="vo" star="3"}
+					<div class="artlist-child reai-col-md6 reai-col-sm12">
+						<div class="artlist-nav-box display">
+					     <div class="art-img display-child"><img src="{$vo.coverimg}" alt=""></div>
+						 <div class="art-nav display-child">
+							 <div class="art-nav-item art-contro-first display">
+								<div class="art-title display-child coverhidden"><a href="/index/article/index/pid/{$vo.id}.html">{$vo.title}</a></div>
+								<div class="art-time display-child coverhidden">{$vo.time|date="Y-m-d H:i:s",###}</div>
+							 </div>
+							 <div class="art-nav-item coverhidden">
+							 	作者: <span>{$vo.author}</span>
+							 </div>
+							 <div class="art-nav-item coverhidden">
+								类型: <span class="art-type">{$vo.type}</span>
+							 </div>
+							 <div class="art-nav-item coverhidden">	
+									标签: 
+								{foreach $vo.label as $label} 
+									<span class="art-label">{$label}</span>
+								{/foreach}
+							 </div>
+						 </div>
+						</div>
+					</div>
+					{/artlist}
+				</div>	
+                 <div class="art-list-box">
+					<div class="article-header">
+						精选推文 <span>精</span>
+						<a class="art-more" href="/index/api/classify/recommend/2.html">更多</a>
+					</div>
+					{artlist name="vo" star="2"}
+					<div class="artlist-child reai-col-md6 reai-col-sm12">
+						<div class="artlist-nav-box display">
+					     <div class="art-img display-child"><img src="{$vo.coverimg}" alt=""></div>
+						 <div class="art-nav display-child">
+							 <div class="art-nav-item art-contro-first display">
+								<div class="art-title display-child coverhidden"><a href="/index/article/index/pid/{$vo.id}.html">{$vo.title}</a></div>
+								<div class="art-time display-child coverhidden">{$vo.time|date="Y-m-d H:i:s",###}</div>
+							 </div>
+							 <div class="art-nav-item coverhidden">
+							 	作者: <span>{$vo.author}</span>
+							 </div>
+							 <div class="art-nav-item coverhidden">
+								类型: <span class="art-type">{$vo.type}</span>
+							 </div>
+							 <div class="art-nav-item coverhidden">	
+									标签: 
+								{foreach $vo.label as $label} 
+									<span class="art-label">{$label}</span>
+								{/foreach}
+							 </div>
+						 </div>
+						</div>
+					</div>
+					{/artlist}
+				</div>	
+				</div>
+				<div class="display-child art-right reai-hide-xs"> 
+				<div class="reai-panel" style="height: 240px;">
+					<div class="reai-panel-title">统计</div>
+					<div class="reai-panel-nav">
+					 <div class="panel-today">
+						 <div class="panel-item1">今日发文: <span class="red">{$total.today.artcount}</span> </div>
+						 <div class="panel-item1">今日留言: <span class="red">{$total.today.lycount}</span> </div>
+						 <div class="panel-item1">今日流量: <span class="red">{$total.all.flowcount}</span> </div>
+					 </div>
+						<div class="panel-all">
+							<div class="panel-item">总文章 <br><span class="red">{$total.all.artcount}</span></div>
+							<div class="panel-item">总留言<br><span class="red">{$total.all.lycount}</span></div>
+							<div class="panel-item">总流量<br><span class="red">{$total.all.flowcount}</span></div>
+						</div>
+					</div>
+				</div>
+				<div class="reai-panel" >
+					<div class="reai-panel-title">文章分类列表</div>
+					<div class="reai-panel-nav">
+                        <ul class="art-list">
+							{arttype name="vo" num="4"}
+							<li class="art-list-child"> <a  href="{$vo.url}" target="_blank">{$vo.typename} </a></li>
+								{/arttype}
+							</ul>
+					</div>
+				</div>
+				<div class="reai-panel" >
+					<div class="reai-panel-title">文章标签列表</div>
+					<div class="reai-panel-nav">
+				       {artlabel name='vo' num='100'}
+				               <span class="label-child"><a href="{$vo.url}" target="_blank">{$vo.labelname}</a></span>
+				                  {/artlabel}
+					</div>
+				</div>
+				<div class="reai-panel" >
+					<div class="reai-panel-title">最新留言</div>
+					<div class="reai-panel-nav">
+						<ul class="liuyan-list">	
+				       {liuyan name="vo" order="desc" num="5"}
+				        <li>
+							<div class="ly-title">
+							<div class="ly-user-name">用户: <span class="red">{$vo.username}</span></div>
+							<div class="ly-time">{$vo.time|date="Y-m-d H:i:s",###}</div>
+							</div>
+							<div class="ly-content">内容:{$vo.content}</div>
+						</li>
+				       {/liuyan}
+					   </ul>
+					</div>
+				</div>
+			 </div>
+			</div>	
+		</div>
+		{include: file="include/footer"}
+	</body>
+	<script type="text/javascript">
+		reai.use('swiper',function(){
+			
+		})
+	</script>
+</html>

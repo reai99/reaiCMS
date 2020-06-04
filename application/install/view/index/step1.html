@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/reai.ico.css"/>
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/reai.min.css"/>
+		<script src="__COMMON__/js/reai.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="__INSTALL__/css/style.css"/>
+	</head>
+	<body>
+		<div class="install-title">ReaiCMS</div>
+	  <div class="container">
+		<div class="reai-col-md3 reai-col-sm12">
+			<ul class="reai-install-list">
+				<li class="title">安装步骤</li>
+				<li >安装须知</li>
+				<li class="active">环境监测</li>
+				<li>创建数据库</li>
+				<li>安装</li>
+				<li>完成</li>
+			</ul>
+		</div> 
+		  <div class="reai-col-md9 reai-col-sm12" >
+			<div class="reai-install-nav">
+				<h3>环境检测</h3>
+				<div class="install-nav-box">
+					<table class="reai-table">
+						<thead>
+							<th>检测项目</th>
+							<th>最低需求</th>
+							<th>当前配置</th>
+							<th>当前状态</th>
+						</thead>
+					    <tbody>					
+				    {volist id="vo" name="env"}
+					    <tr>	
+						<th>{$vo['0']}</th>
+						<th>{$vo['1']}</th>
+						<th>{$vo['2']}</th>
+						<th class="{$vo['3']=='success'?'success':'fail'}">{$vo['3']}</th>
+						</tr>
+					{/volist}
+					    </tbody>
+					</table>	
+				</div>
+				<h3>文件权限检测</h3>
+				<div class="install-nav-box">
+					<table class="reai-table">
+						<thead>
+							<th>目录/文件</th>
+							<th>运行要求</th>
+							<th>当前状态</th>
+						</thead>
+					    <tbody>
+				    {volist id="vo" name="dirfile"}
+					    <tr>	
+						<th>{$vo['3']}</th>
+						<th>{$vo['1']}</th>
+						<th class="{$vo['2']=='success'?'success':'fail'}">{$vo['2']}</th>
+						</tr>
+					{/volist}
+					    </tbody>
+					</table>	
+				</div>
+				<h3>扩展函数支持检测</h3>
+				<div class="install-nav-box">
+					<table class="reai-table">
+						<thead>
+							<th>函数名称</th>
+							<th>运行要求</th>
+							<th>检测结果</th>
+						</thead>
+					    <tbody>
+				    {volist id="vo" name="fun"}
+						<tr>
+						<th>{$vo['0']}</th>
+						<th>{$vo['1']}</th>
+						<th class="{$vo['2']=='success'?'success':'fail'}">{$vo['2']}</th>
+						</tr>
+					{/volist}
+					    </tbody>
+					</table>
+					
+				</div>
+			</div>  
+			<div class="reai-install-btn">
+			<button type="button" class="reai-btn reai-btn-normal reai-btn-md"><a href="/install.php">上一步</a></button>
+			<button type="button" class="reai-btn reai-btn-md submit-event">下一步</button>
+			 </div>
+		  </div>
+	  </div>
+	</body>
+	<script type="text/javascript">
+		reai.ready(function(){
+		let btn=document.querySelector(".submit-event");
+		btn.onclick=function(){
+			reai.ajax({
+				url:'./one',
+				method:'post',
+				success:function(res){
+					let data=JSON.parse(res);
+					if(data.code==1){
+						reai.msg(data.msg+'正在为你跳转...');
+						setTimeout(function(){
+							location.href="/install.php/index/two.html";
+						},400);
+					}else{
+						reai.msg(data.msg);
+					}
+				},
+				error:function(err){
+					reai.msg("系统错误:"+err)
+				}
+			})
+		}
+		})
+	</script>
+</html>

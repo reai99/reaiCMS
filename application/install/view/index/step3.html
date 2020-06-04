@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/reai.ico.css"/>
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/reai.min.css"/>
+		<script src="__COMMON__/js/reai.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="__INSTALL__/css/style.css"/>
+	<style type="text/css">
+		.reai-install-nav div{height:26px;line-height: 26px;font-size: 14px;font-weight: 600;}
+		.reai-install-nav .red{color:red;}
+		.reai-install-nav .green{color: green;}
+	</style>
+	</head>
+	<body>
+		<div class="install-title">ReaiCMS</div>
+	  <div class="container">
+		<div class="reai-col-md3 reai-col-sm12">
+			<ul class="reai-install-list">
+				<li class="title">安装步骤</li>
+				<li>安装须知</li>
+				<li>环境监测</li>
+				<li>创建数据库</li>
+				<li class="active">安装</li>
+				<li>完成</li>
+			</ul>
+		</div> 
+		  <div class="reai-col-md9 reai-col-sm12" >
+			<div class="reai-install-nav">
+				<h3>安装中...</h3>
+               
+			</div>  
+			<div class="reai-install-btn">
+			<button type="button" class="reai-btn reai-btn-normal reai-btn-md"><a href="/install.php/index/two.html">上一步</a></button>
+			</div>
+		  </div>
+	  </div>
+	</body>
+</html>
+<script type="text/javascript">
+	reai.ready(function(){})
+	    let index=1;
+		function installmsg(msg,cls){
+		  if(cls=='ok'){reai.msg(msg);setTimeout(function(){location.href="/install.php/index/four.html"},2000)
+		  }else{
+		  let install=document.querySelector('.reai-install-nav');
+		  let dom="<div class='"+cls+"'>"+index+"."+msg+"</div>";
+			install.innerHTML=install.innerHTML+dom;
+			index++;
+		  }
+		}
+
+	</script>

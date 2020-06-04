@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/reai.ico.css"/>
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/reai.min.css"/>
+		<script src="__COMMON__/js/reai.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="__INSTALL__/css/style.css"/>
+	</head>
+	<body>
+		<div class="install-title">ReaiCMS</div>
+	  <div class="container">
+		<div class="reai-col-md3 reai-col-sm12">
+			<ul class="reai-install-list">
+				<li class="title">安装步骤</li>
+				<li>安装须知</li>
+				<li>环境监测</li>
+				<li class="active">创建数据库</li>
+				<li>安装</li>
+				<li>完成</li>
+			</ul>
+		</div> 
+		  <div class="reai-col-md9 reai-col-sm12" >
+			  <form action="#" method="post" id="form">
+			<div class="reai-install-nav">
+               <h3>数据库信息</h3>
+                  <div class="reai-form-item">
+				   <label class="reai-form-label">数据库类型</label>
+					<div class="reai-input-inline">
+					<input type="text" name="sql[]" style="background: rgba(0,0,0,0.15);" class="reai-input" value="mysql" readonly>
+						</div>
+					</div>
+                  <div class="reai-form-item">
+				   <label class="reai-form-label">数据库地址</label>
+					<div class="reai-input-inline">
+					<input type="text" name="sql[]"  class="reai-input" value="localhost">
+						</div>
+					</div>
+                  <div class="reai-form-item">
+				   <label class="reai-form-label">数据库名</label>
+					<div class="reai-input-inline">
+					<input type="text" name="sql[]" class="reai-input" value="zqy" >
+						</div>
+					</div>
+                  <div class="reai-form-item">
+				   <label class="reai-form-label">数据库用户名</label>
+					<div class="reai-input-inline">
+					<input type="text" name="sql[]" class="reai-input" value="root">
+						</div>
+					</div>
+                  <div class="reai-form-item">
+				   <label class="reai-form-label">数据库密码</label>
+					<div class="reai-input-inline">
+					<input type="text" name="sql[]" class="reai-input" value="root">
+						</div>
+					</div>
+                  <div class="reai-form-item">
+				   <label class="reai-form-label">数据库端口</label>
+					<div class="reai-input-inline">
+					<input type="text" name="sql[]" class="reai-input" value="3306">
+						</div>
+					</div>	
+                  <div class="reai-form-item">
+				   <label class="reai-form-label">数据库前缀</label>
+					<div class="reai-input-inline">
+					<input type="text" name="sql[]" class="reai-input" value="reai_">
+						</div>
+					</div>	
+			  <h3>管理员信息</h3>
+                  <div class="reai-form-item">
+				   <label class="reai-form-label">后台账户</label>
+					<div class="reai-input-inline">
+					<input type="text"  name="admin[]" class="reai-input" >
+						</div>
+					</div>		
+                  <div class="reai-form-item">
+				   <label class="reai-form-label">后台密码</label>
+					<div class="reai-input-inline">
+					<input type="password" name="admin[]" class="reai-input" >
+						</div>
+					</div>	
+                  <div class="reai-form-item">
+				   <label class="reai-form-label">确认密码</label>
+					<div class="reai-input-inline">
+					<input type="password" name="admin[]" class="reai-input" >
+						</div>
+					</div>	
+			</div>  
+			<div class="reai-install-btn">
+			<button type="button" class="reai-btn reai-btn-normal reai-btn-md"><a href="/install.php/index/one.html">上一步</a></button>
+			<button type="button" class="reai-btn reai-btn-md submit-event">下一步</button>
+			</div>
+			</form>
+		  </div>
+
+	  </div>
+	</body>
+	<script type="text/javascript">
+		reai.ready(function(){
+	    let btn=document.querySelector(".submit-event");
+		btn.onclick=function(){
+			reai.ajax({
+				method:'post',
+				url:"{:url('index/two')}",
+				data:reai.serialize("#form"),
+				success:function(res){
+                  let data=JSON.parse(res);
+				  if(data.code!=1){
+					  reai.msg(data.msg+" error code:"+data.code);
+				  }else{
+					  reai.msg(data.msg);
+					  setTimeout(function(){
+					  location.href="{:url('index/three')}";
+					  },400)
+				  }
+				},
+				error:function(err){
+					
+				}
+			})
+		}
+		})
+
+
+	</script>
+</html>

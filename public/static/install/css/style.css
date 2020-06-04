@@ -1,0 +1,25 @@
+
+body{background: rgb(235, 240, 245);}
+.container{margin: 0 auto;margin-top: 15px;max-width: 800px;padding: 10px;}
+.container:after{content: "";clear: both;display: block;}
+.install-title{height: 68px;text-indent:20px;line-height: 68px;font-size: 20px;background:#009688;color: #fff;font-weight: 600;position: relative}
+.reai-install-list{background: #009688;height: 360px;color: #fff;border-radius: 4px 0 0 4px;box-shadow: 0 0 6px rgba(0,0,0,0.15);}
+.reai-install-list li{height: 40px;line-height: 40px;text-align: center;cursor: pointer;position: relative;}
+.reai-install-nav{background: #fff;height: 360px;color: rgba(0,0,0,0.8);padding: 5px 14px;box-sizing: border-box;
+  border-radius:0 4px 4px 0;box-shadow: 2px 0 6px rgba(0,0,0,0.15);overflow: hidden;overflow-y: auto;}
+.reai-install-list .title:after{content: "";position: absolute;bottom: 10px;width: 80%;left:10%;height:2px;background: rgba(0,0,0,0.2);}
+.reai-install-list .title{height: 80px;line-height: 70px;font-weight: 600;font-size: 20px;}
+.reai-install-list .active{color:yellow;font-weight: 600;}
+.reai-install-list .active:after{content: ">";position: absolute;right: 10px;}
+.reai-install-btn{height: 60px;line-height: 60px;text-align: center;}
+.install-nav-box{padding:5px 10px;font-size: 14px;}
+.reai-install-nav h2{height: 60px;line-height: 60px;border-bottom:1px solid #f1f1f1;}
+.reai-install-nav h3{height: 50px;line-height: 50px;border-bottom:1px solid #f1f1f1;font-weight: 500;}
+.reai-table{width: 100%;}
+.reai-table th{height: 28px!important;}
+.reai-install-btn a{text-decoration: none;color: #fff;display: inline-block;width: 100%;height: 100%;}
+.reai-form-item{margin-top: 10px;}
+.reai-form-item input{border-radius: 4px;height: 32px;}
+.reai-form-label{padding:7px 10px;font-size: 12px;font-weight: 600;}
+.install-nav-box .success{color:green;}
+.install-nav-box .fail{color:red;}

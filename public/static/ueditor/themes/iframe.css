@@ -1,0 +1,3 @@
+/*可以在这里添加你自己的css*/
+body.view{overflow: hidden;overflow-y: scroll!important;}
+#edui1_iframeholder{max-height: 220px;min-height: 220px;}

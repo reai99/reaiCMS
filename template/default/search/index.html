@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>热爱CMS————文章搜索页</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	{include: file="include:include"}
+	<link rel="stylesheet" type="text/css" href="/template/default/common/css/style.css"/>
+	</head>
+	<body>
+		{include: file="include/header"}
+		<div class="nav">
+			<div class="box-lg article-box display">
+				<div class="display-child art-left">
+					<div class="search-box">
+						<div class="search-box-tt">搜索结果‘<span class="search-content">{$search.name}</span>’&nbsp;&nbsp;结果共‘<span>{$search.length}</span>’条</div>
+					</div>
+				{volist name="article" id="vo" length="6"}
+				<div class="artlist-child reai-col-md12 reai-col-sm12 ">
+					<div class="artlist-nav-box display">
+				     <div class="art-img display-child"><img src="{$vo.coverimg}" alt=""></div>
+					 <div class="art-nav display-child">
+						 <div class="art-nav-item art-contro-first display">
+							<div class="art-title display-child coverhidden"><a href="/index/article/index/pid/{$vo.id}.html">{$vo.title}</a></div>
+							<div class="art-time display-child coverhidden">{$vo.time|date="Y-m-d H:i:s",###}</div>
+						 </div>
+						 <div class="art-nav-item coverhidden">
+						 	作者: <span>{$vo.author}</span>
+						 </div>
+						 <div class="art-nav-item coverhidden">
+							类型: <span class="art-type">{$vo.type}</span>
+						 </div>
+						 <div class="art-nav-item coverhidden">	
+								标签: 
+							{foreach $vo.label as $label} 
+								<span class="art-label">{$label}</span>
+							{/foreach}
+						 </div>
+					 </div>
+					</div>
+				</div>
+				{/volist}
+				<div style="display: inline-block;width: 100%;text-align: center;height: 50px;line-height: 50px;"><div class="reai-page"></div></div>
+				<script type="text/javascript">
+					reai.ready(function(){
+						reai.paging([
+							{
+							total:{$search.length},
+							maxnum:6,
+							distance:5,
+							index:{$Request.param.index ? $Request.param.index : 1},
+							callback:res=>{
+							  window.location.href=window.location.pathname+window.location.search+'&index='+res+'&maxnum='+6;
+							},
+				
+							}
+						])
+					})
+				</script>
+					</div>
+				<div class="display-child art-right reai-hide-xs">
+					</div>
+			</div>
+					
+		</div>
+		{include: file="include/footer"}
+	</body>
+</html>

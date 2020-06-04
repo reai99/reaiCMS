@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="utf-8">
+		<title>热爱模板———文章分类管理</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		 {include: file="include:include"}
+		 <link rel="stylesheet" type="text/css" href="/template/default/common/css/style.css"/>
+	</head>
+	<body>
+		 {include: file="include/header"}
+		<div class="nav">
+		 <div class="box-lg article-box display">
+			<div class="display-child art-left">
+				<div class="classify-list">
+					<dl>
+						<dt>分&nbsp;&nbsp;类</dt>
+						<dd {if  $Request.param.cateid==null} class="list-select"{/if}><a href="{:url('api/classify',array('labelname'=>$Request.param.labelname,'recommend'=>$Request.param.recommend))}">全部</a></dd>
+						{arttype name="vo" order="asc"}
+						<dd {if  $Request.param.cateid==$vo.cateid}class="list-select"{/if}>
+							<a href="{:url('api/classify',array('cateid'=>$vo.cateid,'labelname'=>$Request.param.labelname,'recommend'=>$Request.param.recommend))}">{$vo.typename}</a>
+						</dd>
+						{/arttype}
+					</dl>
+					<dl>
+						<dt>标&nbsp;&nbsp;签</dt>
+						<dd {if  $Request.param.labelname==null} class="list-select"{/if}><a href="{:url('api/classify',array('cateid'=>$Request.param.cateid,'recommend'=>$Request.param.recommend))}">全部</a></dd>
+						{artlabel name="vo" order="asc"}
+						<dd {if  $Request.param.labelname==$vo.labelname}class="list-select"{/if}>
+							<a href="{:url('api/classify',array('cateid'=>$Request.param.cateid,'labelname'=>$vo.labelname,'recommend'=>$Request.param.recommend))}">{$vo.labelname}</a>
+						</dd>
+						{/artlabel}
+					</dl>
+					<dl>
+						<dt>推&nbsp;&nbsp;荐</dt>
+						<dd {if  $Request.param.recommend==null} class="list-select"{/if}><a href="{:url('api/classify',array('cateid'=>$Request.param.cateid,'labelname'=>$Request.param.labelname))}">全部</a></dd>
+						<dd {if  $Request.param.recommend=='1'}class="list-select"{/if}>
+							<a href="{:url('api/classify',array('cateid'=>$Request.param.cateid,'labelname'=>$Request.param.labelname,'recommend'=>1))}">一级推文</a>
+						</dd>
+						<dd {if  $Request.param.recommend=='2'}class="list-select"{/if}>
+						    <a href="{:url('api/classify',array('cateid'=>$Request.param.cateid,'labelname'=>$Request.param.labelname,'recommend'=>2))}">二级推文</a>
+						</dd>
+						<dd {if  $Request.param.recommend=='3'}class="list-select"{/if}>
+							<a href="{:url('api/classify',array('cateid'=>$Request.param.cateid,'labelname'=>$Request.param.labelname,'recommend'=>3))}">三级推文</a>
+						</dd>
+						<dd {if  $Request.param.recommend=='4'}class="list-select"{/if}>
+							<a href="{:url('api/classify',array('cateid'=>$Request.param.cateid,'labelname'=>$Request.param.labelname,'recommend'=>4))}">四级推文</a>
+						</dd>
+						<dd {if  $Request.param.recommend=='5'}class="list-select"{/if}> 
+						    <a href="{:url('api/classify',array('cateid'=>$Request.param.cateid,'labelname'=>$Request.param.labelname,'recommend'=>5))}">五级推文</a>
+						</dd>
+					</dl>
+				</div>
+				{volist name="article.data" id="vo" length="6"}
+				<div class="artlist-child reai-col-md12 reai-col-sm12 ">
+					<div class="artlist-nav-box display">
+				     <div class="art-img display-child"><img src="{$vo.coverimg}" alt=""></div>
+					 <div class="art-nav display-child">
+						 <div class="art-nav-item art-contro-first display">
+							<div class="art-title display-child coverhidden"><a href="/index/article/index/pid/{$vo.id}.html">{$vo.title}</a></div>
+							<div class="art-time display-child coverhidden">{$vo.time|date="Y-m-d H:i:s",###}</div>
+						 </div>
+						 <div class="art-nav-item coverhidden">
+						 	作者: <span>{$vo.author}</span>
+						 </div>
+						 <div class="art-nav-item coverhidden">
+							类型: <span class="art-type">{$vo.type}</span>
+						 </div>
+						 <div class="art-nav-item coverhidden">	
+								标签: 
+							{foreach $vo.label as $label} 
+								<span class="art-label">{$label}</span>
+							{/foreach}
+						 </div>
+					 </div>
+					</div>
+				</div>
+				{/volist}
+				<div style="display: inline-block;width: 100%;text-align: center;height: 50px;line-height: 50px;"><div class="reai-page"></div></div>
+			<script type="text/javascript">
+				reai.ready(function(){
+					reai.paging([
+						{
+						total:{$article.length},
+						maxnum:6,
+						distance:5,
+						index:{$Request.param.index ? $Request.param.index : 1},
+						callback:res=>{
+						console.log(window)
+						  window.location.href=window.location.pathname+'?index='+res+'&maxnum='+6;
+						},
+
+						}
+					])
+				})
+			</script>
+			</div>
+			<div class="display-child art-right reai-hide-xs">
+				<div class="reai-panel" style="height: 240px;">
+					<div class="reai-panel-title">统计</div>
+					<div class="reai-panel-nav">
+					 <div class="panel-today">
+						 <div class="panel-item1">今日发文: <span class="red">{$total.today.artcount}</span> </div>
+						 <div class="panel-item1">今日留言: <span class="red">{$total.today.lycount}</span> </div>
+						 <div class="panel-item1">今日流量: <span class="red">{$total.all.flowcount}</span> </div>
+					 </div>
+						<div class="panel-all">
+							<div class="panel-item">总文章 <br><span class="red">{$total.all.artcount}</span></div>
+							<div class="panel-item">总留言<br><span class="red">{$total.all.lycount}</span></div>
+							<div class="panel-item">总流量<br><span class="red">{$total.all.flowcount}</span></div>
+						</div>
+					</div>
+				</div>
+				<div class="reai-panel" >
+					<div class="reai-panel-title">文章分类列表</div>
+					<div class="reai-panel-nav">
+				        <ul class="art-list">
+							{arttype name="vo" num="4"}
+							<li class="art-list-child"> <a  href="{$vo.url}" target="_blank">{$vo.typename} </a></li>
+								{/arttype}
+							</ul>
+					</div>
+				</div>
+				<div class="reai-panel" >
+					<div class="reai-panel-title">文章标签列表</div>
+					<div class="reai-panel-nav">
+				       {artlabel name='vo' num='100'}
+				               <span class="label-child"><a href="{$vo.url}" target="_blank">{$vo.labelname}</a></span>
+				                  {/artlabel}
+					</div>
+				</div>
+			</div>
+		 </div>
+		</div>
+		  {include: file="include/footer"}
+	</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<title>热爱模板———文章详情页</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	 {include: file="include:include"}
+	 <link rel="stylesheet" type="text/css" href="/template/default/common/css/style.css"/>
+	 <script src="/template/default/common/js/main.js" type="text/javascript" charset="utf-8"></script>
+	 <script type="text/javascript">
+	 	reai.use('form',function(){
+			let form=reai.form;
+			form.submit('.data-submit',function(data){
+				reai.ajax({
+					url:'/index/user',
+					method:'post',
+					data:data,
+					dataType:'json',
+					success:res=>{
+						if(res.code==2||res.code==1){setTimeout(function(){location.reload(); },1000)}
+						reai.msg(res.msg)
+					},
+					error:res=>{
+						reai.msg(res)
+					}
+				})
+			});
+		let register=document.querySelector(".event-register")
+		register.addEventListener('click',function(){
+			reai.ajax({method:'post',url:'/index/index/logout',});
+			reai.msg('注销成功');setTimeout(function(){location.reload();},1000)
+		},false)
+		})
+	 
+	 </script>
+	</head>
+	<body>
+ {include: file="include/header"}
+		<div class="nav">
+		 <div class="box-lg article-box display">
+			<div class="display-child art-left login-box">
+				{if condition="empty($Think.session.index_user)"}
+			 		<div class="reai-login-box">
+					<div class="login-container login-up-index">
+					<div class="login-submit reai-form">
+						<h2>登录</h2>
+						<div class="reai-login-input"><input name="username" class="reai-input"  type="text" placeholder="请输入账号"></div>
+						<div class="reai-login-input"><input name="password" class="reai-input" type="password" placeholder="请输入密码"></div>
+						<div class="reai-login-btn"><input class="data-submit"  type="button" value="登录"></div>
+						<div class="reai-to-change reai-change-event">没有账号?点我立即注册</div>
+						<input type="hidden" name="status" class="reai-input" value="1">
+					</div>
+					</div>
+					<div class="login-container login-in-index">
+					 <div class="login-submit">
+					 	<h2>注册</h2>
+					 	<div class="reai-login-input"><input name="username" class="reai-input" type="text" placeholder="请输入账号"></div>
+					 	<div class="reai-login-input"><input name="password" class="reai-input" type="password" placeholder="请输入密码"></div>
+						<div class="reai-login-input"><input name="email" class="reai-input" type="text" placeholder="请输入邮箱"></div>
+					 	<div class="reai-login-btn"><input class="data-submit" type="button" value="注册"></div>
+						<div class="reai-to-change  reai-change-event">已经有账号了?立即前往登录</div>
+						<input type="hidden" name="status" class="reai-input" value="0">
+					 </div>
+					</div>
+					<div class="reai-overlay-container">
+					    <div class="reai-overlay">
+					        <div class="reai-overlay-panel overlay-left">
+					         <h2>您已经有账号了吗？</h2>
+					         <span>来吧，登录去体验更多新东西</span>
+					         <div class="reai-overlay-btn">
+					         	 <input type="button"class="reai-login-event" value="立即登录" />
+					         </div>
+					        </div>
+					        <div class="reai-overlay-panel overlay-right">
+					           <h2>还没注册账号？</h2>
+							   <span>加入我们，让我们一起学习吧</span>
+							   <div class="reai-overlay-btn">
+							   	 <input type="button" class="reai-login-event" value="立即注册" />
+							   </div>
+					        </div>
+					    </div>
+					</div> 
+					<script type="text/javascript">
+						let mv=new template();
+						mv.login();
+					</script>
+					</div>
+					{else}
+					<div class="reai-login-box" style="height: 340px;max-width: 500px;margin: 0 auto;">
+					<div class="login-status">
+						<div class="login-status-tt">已登录</div>
+						<div class="reai-form-item">
+							<label class="reai-form-label">用户名:</label>
+							<div class="reai-input-block" style="line-height: 36px;text-indent: 10px;">{$user.username}</div>
+						</div>
+						<div class="reai-form-item">
+							<label class="reai-form-label">邮&nbsp;&nbsp;&nbsp;&nbsp;箱:</label>
+							<div class="reai-input-block" style="line-height: 36px;text-indent: 10px;">{$user.email}</div>
+						</div>
+						<div class="reai-form-item">
+							<label class="reai-form-label">注册时间:</label>
+							<div class="reai-input-block" style="line-height: 36px;text-indent: 10px;">{$user.time|date="Y-m-d H:i:s",###}</div>
+						</div>
+						<div class="reai-form-item">
+							<label class="reai-form-label">当前IP:</label>
+							<div class="reai-input-block" style="line-height: 36px;text-indent: 10px;">{$Think.SERVER.REMOTE_ADDR}</div>
+						</div>
+						<div class="reai-form-item" style="text-align: center;">
+							<button type="button" class="reai-btn">修改密码</button>
+							<button type="button" class="reai-btn reai-btn-danger event-register">注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销</button>
+						</div>
+					</div>
+					</div>
+					{/if}
+			 		
+
+			</div>
+			<div class="display-child art-right reai-hide-xs">
+                <div class="reai-panel" style="height: 240px;">
+                	<div class="reai-panel-title">统计</div>
+                	<div class="reai-panel-nav">
+                	 <div class="panel-today">
+                		 <div class="panel-item1">今日发文: <span class="red">{$total.today.artcount}</span> </div>
+                		 <div class="panel-item1">今日留言: <span class="red">{$total.today.lycount}</span> </div>
+                		 <div class="panel-item1">今日流量: <span class="red">{$total.all.flowcount}</span> </div>
+                	 </div>
+                		<div class="panel-all">
+                			<div class="panel-item">总文章 <br><span class="red">{$total.all.artcount}</span></div>
+                			<div class="panel-item">总留言<br><span class="red">{$total.all.lycount}</span></div>
+                			<div class="panel-item">总流量<br><span class="red">{$total.all.flowcount}</span></div>
+                		</div>
+                	</div>
+                </div>
+			</div>
+		 </div>
+		</div>
+		  {include: file="include/footer"}
+	</body>
+</html>

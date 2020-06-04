@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>热爱CMS——新添文章</title>
+       {include: file="public:include"}
+	</head>
+	<body>
+        <div class="iframe-main-box">
+			<div class="iframe-main-title">新添文章</div>
+         {include: file="public:editart"}
+		 <div class="reai-form-item" style="text-align: center;">
+		 <button type="button" class="reai-btn reai-form-submit">发布文章</button>
+		 </div>
+		 </div>
+	    </div>
+		<script type="text/javascript">
+			reai.use('form',function(){	
+				let form=reai.form;
+				let file;
+				reai.file({
+					limit:{type:"image/png,image/jpeg"},
+					callback:res=>{file=res;},
+					});
+				form.submit('.reai-form-submit',function(data){
+					ue.ready(function(){
+						if(ue.hasContents()){
+							var content = ue.getContent();
+							for (let i in file) {data[i]=file[i];}
+							data.content=content;
+							reai.ajax({
+								url:'/admin/article/addart',
+								method:'post',
+								data:data,
+								dataType:'json',
+								success:res=>{
+							    if(res.code==1){setTimeout(function(){location.reload()},1000)}
+									reai.msg(res.msg);
+								},
+								error:res=>{
+									reai.msg(res)
+								}
+							})
+						}else{
+							reai.msg('内容为空!!!');
+							return false;
+						}	
+					})
+				
+				});
+				form.checkbox([{name:'label'}]);
+				form.select([{name:"recommend",value:[1,2,3,4,5]},{name:'type'}]);
+				form.offOn([{name:'status',}])
+			})
+		</script>
+	</body>
+</html>

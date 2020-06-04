@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>热爱CMS后台登录</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		{include: file="public:include"}
+	<style type="text/css">
+	body{animation: both!important;}
+	.ad-container{width: 100%;height: 100vh;display: flex;justify-content: center;flex-direction: column;background: rgba(0,0,0,0.2);}
+	.ad-box{height:320px;width:90%;max-width:300px;margin: 0 auto ;padding:0 10px;background: #fff; 
+	box-sizing: border-box; box-shadow: 0 0 16px rgba(0,0,0,0.15);border-radius:4px;overflow: hidden;}
+	.ad-box .ad-box-tt{height: 80px;line-height: 80px;font-weight:600;text-align: center;color: rgba(0,0,0,0.6);
+	   font-size: 24px;border-bottom:1px solid #f1f1f1;text-shadow:0 4px 6px rgba(0,0,0,0.45);}
+	 .ad-container .reai-form{margin-right: 0!important;height:239px;display: flex;flex-direction: column;
+	 justify-content: center;padding:0 10px;}
+	 .ad-container .reai-form-label{width: 50px!important;color: rgba(0,0,0,0.6);padding-left: 0!important;}
+	 .ad-container .reai-input-block{margin-left:60px!important;padding-right: 10px;}
+	 .ad-container .reai-form-item input{border-radius: 2px;}
+	 .ad-container .reai-form-item input:hover{box-shadow: 0 0 4px rgba(0,0,0,0.6);}
+	 .ad-container .reai-form-submit{margin-top: 6px!important;}
+	</style>
+	</head>
+	<body>
+	 <div class="ad-container">
+	   <div class="ad-box">
+		   <div class="ad-box-tt">热爱CMS</div>
+		   <div class="reai-form">
+		   <div class="reai-form-item">
+		   	<label class="reai-form-label">账号</label>
+		   	<div class="reai-input-block">
+		   		<input type="text" name="username" class="reai-input" autocomplete="off" placeholder="请输入账号">
+		   	</div>
+		   </div>
+		   <div class="reai-form-item">
+		   	<label class="reai-form-label">密码</label>
+		   	<div class="reai-input-block">
+		   		<input type="password" name="password" class="reai-input" autocomplete="off" placeholder="请输入密码">
+		   	</div>
+		   </div>
+		   <div class="reai-form-item">
+		   	<label class="reai-form-label">验证码</label>
+		   	<div class="reai-input-inline" style="width:80px;">
+		   		<input type="text" name="verificat" class="reai-input" autocomplete="off" placeholder="验证码">
+		   	</div>
+			<canvas id="canvas" width="80" height="36"style="border: 1px solid #ccc;border-radius: 5px;margin-left: 15px;"></canvas>
+		   </div>
+		   <div class="reai-form-item" style="text-align: center;">
+		   	<button type="button" class="reai-btn reai-form-submit">登录</button>
+		   </div>
+	   </div>
+	   </div>
+	 </div>
+	 <script type="text/javascript">
+	 	reai.use('form',function(){
+		let num=[];
+		var form=reai.form;
+		 reai.verificat(num,4);
+		form.submit(".reai-form-submit",function(data){
+			if(data.verificat==num.join('')){
+			reai.ajax({
+				method:'post',
+				url:'/admin/Login/index',
+				data:data,
+			   success:function(res){
+				   let data=JSON.parse(res);
+				   if(data.code==1){
+					   reai.msg(data.msg);
+					  setTimeout(function(){
+						  location.href="/admin.html";
+					  },1500)
+				   }else{
+					   reai.msg(data.msg)
+				   }
+			   },
+			   error:function(err){
+				   reai.msg("系统错误:"+err)
+			   }
+			})	
+			}else{
+				reai.msg("验证码错误!!!");
+			}
+		});
+		
+			
+		})
+	 </script>
+	</body>
+</html>
